@@ -2,30 +2,30 @@ import { useState, useCallback } from "react";
 const clientID = import.meta.env.VITE_CLIENT_ID;
 const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
 
-const useFetchCover = () => {
-  const [coverData, setCoverData] = useState(null);
-  const fetchCover = useCallback(async (coverID) => {
+const useFetchWebsites = () => {
+  const [websiteData, setWebsiteData] = useState(null);
+  const fetchWebsite = useCallback(async (id) => {
     try {
-      const response = await fetch("/api/covers", {
+      const response = await fetch("/api/websites", {
         method: "POST",
         headers: {
           "Client-ID": clientID,
           Authorization: accessToken,
           "Content-Type": "text/plain",
         },
-        body: `fields height,image_id,url,width; where id = ${coverID};`,
+        body: `fields checksum,url; where game=${id};`,
       });
       if (!response.ok) {
-        throw new Error("Failed to fetch Cover data");
+        throw new Error("Failed to fetch websites data");
       }
       const jsonData = await response.json();
-      setCoverData(jsonData);
+      setWebsiteData(jsonData);
     } catch (err) {
       console.error(err);
     }
   }, []);
 
-  return { coverData, fetchCover };
+  return { websiteData, fetchWebsite };
 };
 
-export default useFetchCover;
+export default useFetchWebsites;

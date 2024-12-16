@@ -17,11 +17,12 @@ const useFetchGame = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch data");
+        throw new Error("Failed to fetch game data");
       }
 
       const jsonData = await response.json();
       setGameData(jsonData);
+      console.log("GAME DATA", jsonData);
     } catch (err) {
       console.error(err);
     }
