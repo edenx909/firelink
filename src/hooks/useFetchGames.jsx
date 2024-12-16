@@ -3,7 +3,7 @@ const clientID = import.meta.env.VITE_CLIENT_ID;
 const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
 
 const useFetchGames = () => {
-  const [data, setData] = useState(null);
+  const [gamesData, setGamesData] = useState(null);
   const fetchData = async (search) => {
     try {
       const response = await fetch("/api/games", {
@@ -13,7 +13,7 @@ const useFetchGames = () => {
           Authorization: accessToken,
           "Content-Type": "text/plain",
         },
-        body: `fields aggregated_rating,aggregated_rating_count,alternative_names,artworks,bundles,category,checksum,collection,collections,cover,created_at,dlcs,expanded_games,expansions,external_games,first_release_date,follows,forks,franchise,franchises,game_engines,game_localizations,game_modes,genres,hypes,involved_companies,keywords,language_supports,multiplayer_modes,name,parent_game,platforms,player_perspectives,ports,rating,rating_count,release_dates,remakes,remasters,screenshots,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites; search"=${search}";`,
+        body: `fields aggregated_rating,artworks,cover,created_at,dlcs,first_release_date,follows,forks,franchise,franchises,game_engines,game_localizations,game_modes,genres,hypes,involved_companies,keywords,language_supports,multiplayer_modes,name,parent_game,platforms,player_perspectives,ports,rating,rating_count,release_dates,remakes,remasters,screenshots,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites; search"=${search}";`,
       });
 
       if (!response.ok) {
@@ -21,14 +21,14 @@ const useFetchGames = () => {
       }
 
       const jsonData = await response.json();
-      setData(jsonData);
+      setGamesData(jsonData);
       console.log(jsonData);
     } catch (err) {
       console.error(err);
     }
   };
 
-  return { data, fetchData };
+  return { gamesData, fetchData };
 };
 
 export default useFetchGames;
