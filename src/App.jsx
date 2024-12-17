@@ -3,6 +3,7 @@ import InfoPage from "./components/InfoPage";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useFetchGames from "./hooks/useFetchGames";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   const [search, setSearch] = useState("");
@@ -16,31 +17,46 @@ const App = () => {
         <Route
           path="/"
           element={
-            <>
-              <h1>OGL</h1>
+            <div className="flex items-center justify-center h-screen flex-col space-y-10">
+              <h1 className="text-7xl">Firelink</h1>
+              <p>A game index using the IGDB Database</p>
+
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search for a game..."
+                className="border px-5 py-2 rounded-xl"
+                placeholder=""
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               />
               <button onClick={handleSearch}>Search</button>
+
               <div>
                 {gamesData && gamesData.length > 0 ? (
                   gamesData.map((game) => (
-                    <div key={game.id}>
+                    <div key={game.id} className="flex space-x-5">
                       <h3>{game.name} </h3>
-                      <Link to={`/info/${game.id}`}>More Info</Link>
+                      <Link to={`/info/${game.id}`} className="text-blue-600">
+                        More Info
+                      </Link>
                     </div>
                   ))
                 ) : (
-                  <p>No games found</p>
+                  <p></p>
                 )}
               </div>
+            </div>
+          }
+        />
+        <Route
+          path="/info/:id"
+          element={
+            <>
+              <Navbar />
+              <InfoPage />
             </>
           }
         />
-        <Route path="/info/:id" element={<InfoPage />} />
       </Routes>
     </Router>
   );
