@@ -17,6 +17,7 @@ const App = () => {
           path="/"
           element={
             <>
+              <h1>OGL</h1>
               <input
                 type="text"
                 value={search}

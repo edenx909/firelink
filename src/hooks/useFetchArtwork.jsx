@@ -2,31 +2,30 @@ import { useState, useCallback } from "react";
 const clientID = import.meta.env.VITE_CLIENT_ID;
 const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
 
-const useFetchCover = () => {
-  const [coverData, setCoverData] = useState(null);
-  const fetchCover = useCallback(async (coverID) => {
+const useFetchArtwork = () => {
+  const [artworkData, setArtworkData] = useState(null);
+  const fetchArtwork = useCallback(async (id) => {
     try {
-      const response = await fetch("/api/covers", {
+      const response = await fetch("/api/artworks", {
         method: "POST",
         headers: {
           "Client-ID": clientID,
           Authorization: accessToken,
           "Content-Type": "text/plain",
         },
-        body: `fields height,image_id,url,width; where id = ${coverID};`,
+        body: `fields checksum,game,height,image_id,url,width; where game=${id};`,
       });
       if (!response.ok) {
-        console.log("Failed to fetch Cover data");
-        setCoverData(null);
+        throw new Error("Failed to fetch Cover data");
       }
       const jsonData = await response.json();
-      setCoverData(jsonData);
+      setArtworkData(jsonData);
     } catch (err) {
       console.error(err);
     }
   }, []);
 
-  return { coverData, fetchCover };
+  return { artworkData, fetchArtwork };
 };
 
-export default useFetchCover;
+export default useFetchArtwork;
