@@ -38,7 +38,7 @@ const Websites = ({ websiteData }) => {
     );
   };
   return (
-    <div className="flex items-center space-x-4  justify-center ">
+    <div className="flex items-center space-x-4">
       {filteredData?.length > 0 ? (
         filteredData.map((websites) => (
           <GameLinks key={websites.id} url={websites.url} />

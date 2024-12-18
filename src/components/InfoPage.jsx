@@ -13,7 +13,6 @@ import Cover from "./macros/Cover";
 import Story from "./macros/Story";
 import Rating from "./macros/Rating";
 import Videos from "./macros/Videos";
-import Length from "./macros/Length";
 import Websites from "./macros/Websites";
 
 const InfoPage = () => {
@@ -54,16 +53,19 @@ const InfoPage = () => {
     <div className="m-10">
       {gameData && gameData[0] ? (
         <div className="flex  flex-col items-center justify-center space-y-4 mt-20">
-          <Artwork artworkData={artworkData} />{" "}
-          <Websites websiteData={websiteData} />
-          {/* <h1 className="text-4xl">{gameData[0].name}</h1> */}{" "}
-          <div className="flex items-center">
+          <Artwork artworkData={artworkData} lengthData={lengthData} />
+          {/* Length Data into artwork now */}
+
+          <div className="flex items-center w-full justify-center">
             <div className="flex flex-col items-center">
               <Cover coverData={coverData} />
               <Rating gameData={gameData} />
-              <Length lengthData={lengthData} />
             </div>
-            <Story gameData={gameData} />
+            <div className="space-y-4">
+              <h1 className="text-4xl">{gameData[0].name}</h1>
+              <Story gameData={gameData} />
+              <Websites websiteData={websiteData} />
+            </div>
           </div>
           <Screenshots screenshotsData={screenshotsData} />
           <Videos videoData={videoData} />
