@@ -51,17 +51,18 @@ const InfoPage = () => {
 
   return (
     // needs conditional rendering on everything, do more tests
-    <div>
+    <div className="m-10">
       {gameData && gameData[0] ? (
         <div className="flex  flex-col items-center justify-center space-y-4 mt-20">
-          <Artwork artworkData={artworkData} />
+          <Artwork artworkData={artworkData} />{" "}
+          <Websites websiteData={websiteData} />
           {/* <h1 className="text-4xl">{gameData[0].name}</h1> */}{" "}
           <div className="flex items-center">
             <div className="flex flex-col items-center">
-              <Cover coverData={coverData} /> <Rating gameData={gameData} />
+              <Cover coverData={coverData} />
+              <Rating gameData={gameData} />
               <Length lengthData={lengthData} />
             </div>
-
             <Story gameData={gameData} />
           </div>
           <Screenshots screenshotsData={screenshotsData} />
@@ -77,7 +78,6 @@ const InfoPage = () => {
               }
             )}
           </p>
-          <Websites websiteData={websiteData} />
         </div>
       ) : (
         <p>Loading...</p>

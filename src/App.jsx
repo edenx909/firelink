@@ -4,45 +4,91 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useFetchGames from "./hooks/useFetchGames";
 import Navbar from "./components/Navbar";
+import { motion } from "motion/react";
 
 const App = () => {
   const [search, setSearch] = useState("");
   const { gamesData, fetchData } = useFetchGames();
+
   const handleSearch = () => {
     fetchData(search);
+    setSearch("");
   };
+
+  const [gameHover, setGameHover] = useState("");
+
   return (
     <Router>
       <Routes>
         <Route
           path="/"
           element={
-            <div className="flex items-center justify-center h-screen flex-col space-y-10">
-              <h1 className="text-7xl">Firelink</h1>
-              <p>A game index using the IGDB Database</p>
-
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="border px-5 py-2 rounded-xl"
-                placeholder=""
-                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              />
-              <button onClick={handleSearch}>Search</button>
-
-              <div>
+            <div className="overflow-y-hidden">
+              <motion.div
+                className={`flex items-center justify-center flex-col space-y-10 overflow-y-hidden`}
+                initial={{ height: "100vh" }}
+                animate={{ height: gamesData ? "60vh" : "100vh" }}
+              >
+                <h1 className="text-[10rem] font-kinta">Firelink</h1>
+                <p>A game index using the IGDB Database</p>
+                <div className="flex space-x-5 relative items-center">
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="border-[2px] px-5 py-2 rounded-xl w-[40rem]"
+                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                    placeholder=""
+                  />
+                  <button
+                    onClick={handleSearch}
+                    className={` ${
+                      search === "" ? "hidden" : "absolute"
+                    } right-5`}
+                  >
+                    Search
+                  </button>
+                </div>
+              </motion.div>
+              <div className="flex flex-col items-center justify-start border mx-40 overflow-hidden">
                 {gamesData && gamesData.length > 0 ? (
-                  gamesData.map((game) => (
-                    <div key={game.id} className="flex space-x-5">
-                      <h3>{game.name} </h3>
-                      <Link to={`/info/${game.id}`} className="text-blue-600">
-                        More Info
-                      </Link>
-                    </div>
-                  ))
+                  gamesData
+                    // sort through rating for relevant results, may let user set an option
+                    .sort((a, b) => b.total_rating - a.total_rating)
+                    .map((game) => (
+                      <div
+                        key={game.id}
+                        className="flex py-2 border w-full px-5 flex-col"
+                        onMouseEnter={(game) => {
+                          setGameHover(game.id);
+                        }}
+                        onMouseLeave={() => setGameHover("")}
+                      >
+                        <Link to={`/info/${game.id}`} className="text-lg">
+                          {game.name}
+                        </Link>
+                        <p>
+                          {game.total_rating != null
+                            ? game.total_rating.toFixed(2)
+                            : "No Rating"}
+                        </p>
+                        <p>
+                          {game.first_release_date ? (
+                            new Date(
+                              game.first_release_date * 1000
+                            ).toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            })
+                          ) : (
+                            <p>Release Data NA</p>
+                          )}
+                        </p>
+                      </div>
+                    ))
                 ) : (
-                  <p></p>
+                  <></>
                 )}
               </div>
             </div>

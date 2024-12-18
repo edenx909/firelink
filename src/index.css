@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'kinta';
+    src: url('/src/assets/fonts/kinta.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
