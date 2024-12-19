@@ -19,15 +19,16 @@ const App = () => {
 
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route
           path="/"
           element={
-            <div className="overflow-y-hidden">
+            <div className="overflow-y-hidden bg-black text-white">
               <motion.div
                 className={`flex items-center justify-center flex-col space-y-10 overflow-y-hidden`}
                 initial={{ height: "100vh" }}
-                animate={{ height: gamesData ? "60vh" : "100vh" }}
+                animate={{ height: gamesData ? "40vh" : "100vh" }}
               >
                 <h1 className="text-[10rem] font-kinta">Firelink</h1>
                 <p>A game index using the IGDB Database</p>
@@ -36,7 +37,7 @@ const App = () => {
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="border-[2px] px-5 py-2 rounded-xl w-[40rem]"
+                    className="border-[2px] px-5 py-2 rounded-xl w-[40rem] text-black"
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                     placeholder=""
                   />
@@ -44,13 +45,13 @@ const App = () => {
                     onClick={handleSearch}
                     className={` ${
                       search === "" ? "hidden" : "absolute"
-                    } right-5`}
+                    } right-5 text-black`}
                   >
                     Search
                   </button>
                 </div>
               </motion.div>
-              <div className="flex flex-col items-center justify-start border mx-40 overflow-hidden">
+              <div className="bg-black h-[60vh]">
                 {gamesData && gamesData.length > 0 ? (
                   gamesData
                     // sort through rating for relevant results, may let user set an option
@@ -58,7 +59,7 @@ const App = () => {
                     .map((game) => (
                       <div
                         key={game.id}
-                        className="flex py-2 border w-full px-5 flex-col"
+                        className="flex py-2 border w-full px-8 flex-col"
                         onMouseEnter={(game) => {
                           setGameHover(game.id);
                         }}
@@ -97,10 +98,9 @@ const App = () => {
         <Route
           path="/info/:id"
           element={
-            <>
-              <Navbar />
+            <div className="bg-black text-white">
               <InfoPage />
-            </>
+            </div>
           }
         />
       </Routes>

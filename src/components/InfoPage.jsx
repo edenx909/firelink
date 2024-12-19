@@ -50,36 +50,38 @@ const InfoPage = () => {
 
   return (
     // needs conditional rendering on everything, do more tests
-    <div className="m-10">
+    <div className="">
       {gameData && gameData[0] ? (
-        <div className="flex  flex-col items-center justify-center space-y-4 mt-20">
-          <Artwork artworkData={artworkData} lengthData={lengthData} />
-          {/* Length Data into artwork now */}
+        <div className="flex  flex-col items-center justify-center space-y-4 pt-20">
+          <h1 className="text-7xl font-kinta">{gameData[0].name}</h1>
+          {artworkData ? (
+            <Artwork artworkData={artworkData} lengthData={lengthData} />
+          ) : (
+            <h1 className="text-4xl">{gameData[0].name}</h1>
+          )}
 
           <div className="flex items-center w-full justify-center">
             <div className="flex flex-col items-center">
               <Cover coverData={coverData} />
-              <Rating gameData={gameData} />
             </div>
-            <div className="space-y-4">
-              <h1 className="text-4xl">{gameData[0].name}</h1>
-              <Story gameData={gameData} />
+            <div className="space-y-4 px-4 flex flex-col items-end">
+              <p>
+                {new Date(
+                  gameData[0].first_release_date * 1000
+                ).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+              <Rating gameData={gameData} />
               <Websites websiteData={websiteData} />
+              <Story gameData={gameData} />
             </div>
           </div>
+
           <Screenshots screenshotsData={screenshotsData} />
           <Videos videoData={videoData} />
-          <p>
-            Release Date -{" "}
-            {new Date(gameData[0].first_release_date * 1000).toLocaleDateString(
-              "en-US",
-              {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              }
-            )}
-          </p>
         </div>
       ) : (
         <p>Loading...</p>

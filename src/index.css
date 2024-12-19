@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  background-color: #222222;
-  color: white;
-}
-
 @font-face {
   font-family: "kinta";
   src: url("/src/assets/fonts/kinta.ttf") format("truetype");

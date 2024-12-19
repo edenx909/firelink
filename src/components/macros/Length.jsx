@@ -1,10 +1,10 @@
 const Length = ({ lengthData }) => {
   return (
-    <div className="absolute text-white  right-4 bottom-4">
+    <div className="absolute text-black right-5 bottom-5 text-lg  pl-10  rounded-lg backdrop-blur-xl">
       {lengthData && lengthData[0] && (
         <div className="flex flex-col items-end">
           <div className="flex items-center space-x-1">
-            <p> {Math.round(lengthData[0].normally / 3600)} hrs</p>{" "}
+            <p> {Math.round(lengthData[0].normally / 3600)} hrs</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={16}
@@ -19,7 +19,7 @@ const Length = ({ lengthData }) => {
             </svg>
           </div>
           <div className="flex items-center space-x-1">
-            <p> {Math.round(lengthData[0].completely / 3600)} hrs</p>{" "}
+            <p> {Math.round(lengthData[0].completely / 3600)} hrs</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={16}

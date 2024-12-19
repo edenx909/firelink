@@ -9,7 +9,11 @@ const Screenshots = ({ screenshotsData }) => {
           <img
             key={screenshot.image_id}
             src={screenshot.url.replace("t_thumb", "t_1080p")}
-            className="max-w-4/5  w-auto rounded-xl max-h-[50vh]"
+            className="w-auto rounded-xl max-w-[80vw]"
+            style={{
+              width: "50rem",
+              height: "28.125rem",
+            }}
           />
         ))}
       </div>

@@ -2,7 +2,7 @@ import Length from "./Length";
 
 const Artwork = ({ artworkData, lengthData }) => {
   return (
-    <div className="flex justify-center w-full max-w-[70rem] relative">
+    <div className="flex justify-center w-full relative">
       {artworkData && artworkData[0] && (
         <div>
           <img
@@ -11,7 +11,9 @@ const Artwork = ({ artworkData, lengthData }) => {
           />
         </div>
       )}
-      <Length lengthData={lengthData} />
+      <div>
+        <Length lengthData={lengthData} />
+      </div>
     </div>
   );
 };
