@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         kinta: ["kinta", "sans-serif"],
+        silk: ["silk", "sans-serif"],
       },
     },
   },

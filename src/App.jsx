@@ -8,11 +8,13 @@ import { motion } from "motion/react";
 
 const App = () => {
   const [search, setSearch] = useState("");
+  const [resultVisibility, setResultVisibility] = useState(false);
   const { gamesData, fetchData } = useFetchGames();
 
   const handleSearch = () => {
     fetchData(search);
     setSearch("");
+    setResultVisibility(true);
   };
 
   const [gameHover, setGameHover] = useState("");
@@ -24,55 +26,75 @@ const App = () => {
         <Route
           path="/"
           element={
-            <div className="overflow-y-hidden bg-black text-white">
+            <div className="overflow-y-hidden">
               <motion.div
-                className={`flex items-center justify-center flex-col space-y-10 overflow-y-hidden`}
+                className={`flex items-center justify-center flex-col  overflow-y-hidden`}
                 initial={{ height: "100vh" }}
-                animate={{ height: gamesData ? "40vh" : "100vh" }}
+                animate={{ height: gamesData ? "35vh" : "100vh" }}
               >
-                <h1 className="text-[10rem] font-kinta">Firelink</h1>
+                <motion.h1
+                  className="font-silk"
+                  initial={{ fontSize: "10rem" }}
+                  animate={{ fontSize: gamesData ? "5rem" : "10rem" }}
+                >
+                  Firelink
+                </motion.h1>
                 <p>A game index using the IGDB Database</p>
-                <div className="flex space-x-5 relative items-center">
+                <div className="flex space-x-5 relative items-center py-4">
                   <input
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="border-[2px] px-5 py-2 rounded-xl w-[40rem] text-black"
+                    className="border-[1px] px-5 py-2 rounded-xl w-[40rem] text-black"
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                     placeholder=""
                   />
-                  <button
+                  <motion.button
                     onClick={handleSearch}
-                    className={` ${
-                      search === "" ? "hidden" : "absolute"
-                    } right-5 text-black`}
+                    className="right-5 absolute"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{
+                      opacity: search !== "" ? 1 : 0,
+                      x: search !== "" ? 0 : -30,
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     Search
-                  </button>
+                  </motion.button>
                 </div>
               </motion.div>
-              <div className="bg-black h-[60vh]">
+              <motion.div
+                initial={{ height: 0 }}
+                animate={{ height: gamesData ? "65vh" : 0 }}
+              >
                 {gamesData && gamesData.length > 0 ? (
                   gamesData
                     // sort through rating for relevant results, may let user set an option
                     .sort((a, b) => b.total_rating - a.total_rating)
                     .map((game) => (
-                      <div
+                      <Link
+                        to={`/info/${game.id}`}
                         key={game.id}
-                        className="flex py-2 border w-full px-8 flex-col"
-                        onMouseEnter={(game) => {
+                        className={`flex  w-full p-14 flex-col py-4 border-b-[1px] ${
+                          gameHover === game.id ? "bg-black text-white" : ""
+                        }`}
+                        onMouseEnter={() => {
                           setGameHover(game.id);
                         }}
                         onMouseLeave={() => setGameHover("")}
                       >
-                        <Link to={`/info/${game.id}`} className="text-lg">
-                          {game.name}
-                        </Link>
-                        <p>
-                          {game.total_rating != null
-                            ? game.total_rating.toFixed(2)
-                            : "No Rating"}
-                        </p>
+                        <p className="text-lg">{game.name}</p>
+                        {gameHover === game.id ? (
+                          <>
+                            <p>
+                              {game.total_rating != null
+                                ? game.total_rating.toFixed(2)
+                                : "No Rating"}
+                            </p>
+                          </>
+                        ) : (
+                          <></>
+                        )}
                         <p>
                           {game.first_release_date ? (
                             new Date(
@@ -86,19 +108,27 @@ const App = () => {
                             <p>Release Data NA</p>
                           )}
                         </p>
-                      </div>
+                      </Link>
                     ))
                 ) : (
-                  <></>
+                  <>
+                    {resultVisibility ? (
+                      <div className="flex items-center w-full justify-center">
+                        No games found. Please try using more specific keywords.{" "}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </>
                 )}
-              </div>
+              </motion.div>
             </div>
           }
         />
         <Route
           path="/info/:id"
           element={
-            <div className="bg-black text-white">
+            <div className="">
               <InfoPage />
             </div>
           }

@@ -4,7 +4,7 @@ const Cover = ({ coverData }) => {
       {coverData && coverData[0] && (
         <img
           src={coverData[0].url.replace("t_thumb", "t_1080p")}
-          className="rounded-xl object-cover"
+          className="object-cover rounded-sm"
         />
       )}
     </div>
