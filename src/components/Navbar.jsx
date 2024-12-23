@@ -5,7 +5,6 @@ import { useState } from "react";
 const Navbar = () => {
   const [hover, setHover] = useState("");
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <nav className="fixed top-0 w-full flex z-50 bg-white items-center justify-center p-3 px-6">
       <a

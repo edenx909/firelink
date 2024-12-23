@@ -1,10 +1,29 @@
+import { motion } from "motion/react";
+import { useState } from "react";
+
 const Length = ({ lengthData }) => {
+  const [mainHover, setMainHover] = useState(false);
+  const [completeHover, setCompleteHover] = useState(false);
   return (
-    <div className="  rounded-lg">
+    <div className="rounded-lg cursor-pointer">
       {lengthData && lengthData[0] && (
         <div className="flex flex-col items-end">
           {lengthData[0].normally && (
-            <div className="flex items-center space-x-1">
+            <div
+              className="flex items-center space-x-1"
+              onMouseEnter={() => setMainHover(true)}
+              onMouseLeave={() => setMainHover(false)}
+            >
+              <motion.p
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: mainHover ? 1 : 0, x: mainHover ? 0 : 10 }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeInOut",
+                }}
+              >
+                Main Story
+              </motion.p>
               <p> {Math.round(lengthData[0].normally / 3600)} hrs</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +40,24 @@ const Length = ({ lengthData }) => {
             </div>
           )}
           {lengthData[0].completely && (
-            <div className="flex items-center space-x-1">
+            <div
+              className="flex items-center space-x-1"
+              onMouseEnter={() => setCompleteHover(true)}
+              onMouseLeave={() => setCompleteHover(false)}
+            >
+              <motion.p
+                initial={{ opacity: 0, x: 10 }}
+                animate={{
+                  opacity: completeHover ? 1 : 0,
+                  x: completeHover ? 0 : 10,
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeInOut",
+                }}
+              >
+                Completionist
+              </motion.p>
               <p> {Math.round(lengthData[0].completely / 3600)} hrs</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

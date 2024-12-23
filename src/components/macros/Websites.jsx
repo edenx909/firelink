@@ -1,3 +1,5 @@
+import { motion } from "motion/react";
+
 import TwitchIcon from "../../assets/icons/Twitch.png";
 import SteamIcon from "../../assets/icons/Steam.png";
 import TwitterIcon from "../../assets/icons/Twitter.png";
@@ -29,12 +31,13 @@ const Websites = ({ websiteData }) => {
   const GameLinks = ({ url }) => {
     const Icon = assignedIcons(url);
     return (
-      <div
+      <motion.div
         onClick={() => window.open(url, "_blank")}
         className="cursor-pointer"
+        whileHover={{ scale: 1.08, y: -3, x: 3 }}
       >
         {Icon}
-      </div>
+      </motion.div>
     );
   };
 

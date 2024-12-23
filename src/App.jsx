@@ -45,7 +45,7 @@ const App = () => {
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="border-[1px] px-5 py-2 rounded-xl w-[40rem] text-black"
+                    className="border border-black px-5 py-2 rounded-xl w-[40rem] text-black"
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                     placeholder=""
                   />
@@ -66,6 +66,7 @@ const App = () => {
               <motion.div
                 initial={{ height: 0 }}
                 animate={{ height: gamesData ? "65vh" : 0 }}
+                className="p-20"
               >
                 {gamesData && gamesData.length > 0 ? (
                   gamesData
@@ -75,46 +76,67 @@ const App = () => {
                       <Link
                         to={`/info/${game.id}`}
                         key={game.id}
-                        className={`flex  w-full p-14 flex-col py-4 border-b-[1px] ${
-                          gameHover === game.id ? "bg-black text-white" : ""
-                        }`}
                         onMouseEnter={() => {
                           setGameHover(game.id);
                         }}
                         onMouseLeave={() => setGameHover("")}
                       >
-                        <p className="text-lg">{game.name}</p>
-                        {gameHover === game.id ? (
-                          <>
-                            <p>
-                              {game.total_rating != null
-                                ? game.total_rating.toFixed(2)
-                                : "No Rating"}
-                            </p>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                        <p>
-                          {game.first_release_date ? (
-                            new Date(
-                              game.first_release_date * 1000
-                            ).toLocaleDateString("en-US", {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            })
-                          ) : (
-                            <p>Release Data NA</p>
-                          )}
-                        </p>
+                        <motion.div
+                          className="rounded-xl px-14"
+                          animate={{
+                            backgroundColor:
+                              gameHover === game.id ? "#000000" : "#ffffff",
+                            color:
+                              gameHover === game.id ? "#ffffff" : "#000000",
+                            paddingBottom:
+                              gameHover === game.id ? "3.5rem" : "2rem",
+                            paddingTop:
+                              gameHover === game.id ? "3.5rem" : "2rem",
+                          }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <div className="text-lg flex justify-between items-center">
+                            <p>{game.name}</p>
+                            {gameHover === game.id ? (
+                              <>
+                                <motion.div
+                                  initial={{ opacity: 0, y: -20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: -20 }}
+                                  transition={{ duration: 0.8 }}
+                                >
+                                  <p>
+                                    {game.total_rating != null
+                                      ? game.total_rating.toFixed(2)
+                                      : "No Rating"}
+                                  </p>
+                                </motion.div>
+                              </>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                          <p>
+                            {game.first_release_date ? (
+                              new Date(
+                                game.first_release_date * 1000
+                              ).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })
+                            ) : (
+                              <p>Release Data NA</p>
+                            )}
+                          </p>
+                        </motion.div>
                       </Link>
                     ))
                 ) : (
                   <>
                     {resultVisibility ? (
                       <div className="flex items-center w-full justify-center">
-                        No games found. Please try using more specific keywords.{" "}
+                        No games found. Please try using more specific keywords.
                       </div>
                     ) : (
                       <></>

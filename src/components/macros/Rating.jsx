@@ -4,7 +4,6 @@ const Rating = ({ gameData }) => {
 
   return (
     <div className="relative">
-      <p className="text-right">{rating}%</p>
       <div
         className="h-1 bg-red-600 rounded-r-lg absolute right-0"
         style={{ width: `${(rating / 100) * parseFloat(width)}px` }}
