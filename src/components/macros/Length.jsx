@@ -18,7 +18,7 @@ const Length = ({ lengthData }) => {
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: mainHover ? 1 : 0, x: mainHover ? 0 : 10 }}
                 transition={{
-                  duration: 0.5,
+                  duration: 0.3,
                   ease: "easeInOut",
                 }}
               >
@@ -52,7 +52,7 @@ const Length = ({ lengthData }) => {
                   x: completeHover ? 0 : 10,
                 }}
                 transition={{
-                  duration: 0.5,
+                  duration: 0.3,
                   ease: "easeInOut",
                 }}
               >

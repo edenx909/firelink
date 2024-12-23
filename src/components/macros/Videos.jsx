@@ -9,7 +9,9 @@ const Videos = ({ videoData }) => {
   return (
     <div className="flex flex-col items-center">
       {videoData && (
-        <h1 className="border-b py-2 border-black text-center px-96">Videos</h1>
+        <h1 className="border-b py-2 border-black text-center px-[30vw]">
+          Videos
+        </h1>
       )}
 
       <div className=" items-center justify-center p-4 flex flex-wrap gap-4">

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import useFetchGames from "./hooks/useFetchGames";
 import Navbar from "./components/Navbar";
 import { motion } from "motion/react";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [search, setSearch] = useState("");
@@ -152,6 +153,7 @@ const App = () => {
           element={
             <div className="">
               <InfoPage />
+              <Footer />
             </div>
           }
         />

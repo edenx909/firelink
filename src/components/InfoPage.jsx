@@ -42,31 +42,27 @@ const InfoPage = () => {
 
   useEffect(() => {
     if (gameData && gameData[0]) {
+      // cant do normal check since some of these may return null
       setFetchStatus((prev) => ({ ...prev, cover: false }));
       fetchCover(gameData[0].cover).finally(() =>
         setFetchStatus((prev) => ({ ...prev, cover: true }))
       );
-
       setFetchStatus((prev) => ({ ...prev, website: false }));
       fetchWebsite(gameData[0].id).finally(() =>
         setFetchStatus((prev) => ({ ...prev, website: true }))
       );
-
       setFetchStatus((prev) => ({ ...prev, length: false }));
       fetchLength(gameData[0].id).finally(() =>
         setFetchStatus((prev) => ({ ...prev, length: true }))
       );
-
       setFetchStatus((prev) => ({ ...prev, artwork: false }));
       fetchArtwork(gameData[0].id).finally(() =>
         setFetchStatus((prev) => ({ ...prev, artwork: true }))
       );
-
       setFetchStatus((prev) => ({ ...prev, videos: false }));
       fetchVideos(gameData[0].id).finally(() =>
         setFetchStatus((prev) => ({ ...prev, videos: true }))
       );
-
       setFetchStatus((prev) => ({ ...prev, screenshots: false }));
       fetchScreenshots(gameData[0].id).finally(() =>
         setFetchStatus((prev) => ({ ...prev, screenshots: true }))
@@ -96,10 +92,9 @@ const InfoPage = () => {
   }, [fetchStatus]);
 
   return (
-    // needs conditional rendering on everything, do more tests
     <>
       {loading ? (
-        <div className="h-full w-screen flex items-center justify-center">
+        <div className="h-screen flex items-center justify-center">
           <p>Loading</p>
         </div>
       ) : (
