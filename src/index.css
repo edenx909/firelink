@@ -2,3 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "TrajanPro";
+  src: url("./assets/fonts/TrajanPro.ttf") format("truetype");
+}
+::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 999px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #505050;
+}
+
+* {
+  font-family: "Gowun Dodum", serif;
+  font-weight: 400;
+  font-style: normal;
+}

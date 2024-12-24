@@ -4,8 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        kinta: ["kinta", "sans-serif"],
-        silk: ["silk", "sans-serif"],
+        trajanpro: ["TrajanPro", "serif"],
       },
     },
   },

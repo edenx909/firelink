@@ -27,16 +27,16 @@ const App = () => {
         <Route
           path="/"
           element={
-            <div className="overflow-y-hidden">
+            <div className="h-screen overflow-y-hidden">
               <motion.div
-                className={`flex items-center justify-center flex-col  overflow-y-hidden`}
+                className={`flex items-center justify-center flex-col`}
                 initial={{ height: "100vh" }}
                 animate={{ height: gamesData ? "35vh" : "100vh" }}
               >
                 <motion.h1
-                  className="font-silk"
-                  initial={{ fontSize: "10rem" }}
-                  animate={{ fontSize: gamesData ? "5rem" : "10rem" }}
+                  className="font-trajanpro z-50"
+                  initial={{ fontSize: "10vw " }}
+                  animate={{ fontSize: gamesData ? "4vw" : "10vw " }}
                 >
                   Firelink
                 </motion.h1>
@@ -46,7 +46,7 @@ const App = () => {
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="border border-black px-5 py-2 rounded-xl w-[40rem] text-black"
+                    className="border border-black px-5 py-2 rounded-xl w-[60vw]  text-black"
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                     placeholder=""
                   />
@@ -65,9 +65,8 @@ const App = () => {
                 </div>
               </motion.div>
               <motion.div
-                initial={{ height: 0 }}
-                animate={{ height: gamesData ? "65vh" : 0 }}
-                className="p-20"
+                className="m-20 overflow-y-auto"
+                style={{ maxHeight: "65vh" }}
               >
                 {gamesData && gamesData.length > 0 ? (
                   gamesData
@@ -107,8 +106,8 @@ const App = () => {
                                   transition={{ duration: 0.8 }}
                                 >
                                   <p>
-                                    {game.total_rating != null
-                                      ? game.total_rating.toFixed(2)
+                                    {game.rating != null
+                                      ? game.rating.toFixed(2)
                                       : "No Rating"}
                                   </p>
                                 </motion.div>
@@ -151,7 +150,7 @@ const App = () => {
         <Route
           path="/info/:id"
           element={
-            <div className="">
+            <div className="overflow-x-hidden">
               <InfoPage />
               <Footer />
             </div>

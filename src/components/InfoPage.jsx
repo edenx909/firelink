@@ -15,6 +15,7 @@ import Rating from "./macros/Rating";
 import Videos from "./macros/Videos";
 import Length from "./macros/Length";
 import Websites from "./macros/Websites";
+import Loading from "./macros/Loading";
 
 const InfoPage = () => {
   const { id } = useParams();
@@ -87,7 +88,9 @@ const InfoPage = () => {
       fetchStatus.videos &&
       fetchStatus.screenshots
     ) {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1200);
     }
   }, [fetchStatus]);
 
@@ -95,12 +98,12 @@ const InfoPage = () => {
     <>
       {loading ? (
         <div className="h-screen flex items-center justify-center">
-          <p>Loading</p>
+          <Loading />
         </div>
       ) : (
         <div className="z-20">
           {gameData && gameData[0] ? (
-            <div className="flex flex-col items-center justify-center space-y-4">
+            <div className="flex flex-col items-center justify-center md:space-y-4 space-y-2">
               {artworkData ? (
                 <Artwork
                   artworkData={artworkData}
@@ -109,15 +112,17 @@ const InfoPage = () => {
                 />
               ) : (
                 <></>
-                // <h1 className="text-4xl">{gameData[0].name}</h1>
               )}
               <div className="bg-white flex flex-col items-center justify-center p-10">
-                <div className="flex items-center w-full justify-center">
-                  <div className="flex flex-col items-center">
+                <div className="flex justify-center md:items-end xl:mx-40 mx-12 2xl:mx-64 flex-col md:flex-row">
+                  <div
+                    className={`flex flex-col items-center md:p-4  ${
+                      artworkData[0] ? "-mt-60" : "mt-20"
+                    }`}
+                  >
                     <Cover coverData={coverData} />
-                    <Rating gameData={gameData} />
                   </div>
-                  <div className="space-y-5 px-4 flex flex-col items-end">
+                  <div className="space-y-4 flex flex-col  md:items-end md:py-4 py-2 items-center">
                     <Length lengthData={lengthData} />
                     <p>
                       {new Date(
@@ -128,11 +133,11 @@ const InfoPage = () => {
                         day: "numeric",
                       })}
                     </p>
+                    <Rating gameData={gameData} />
                     <Websites websiteData={websiteData} />
-                    <Story gameData={gameData} />
                   </div>
                 </div>
-
+                <Story gameData={gameData} />
                 <Screenshots screenshotsData={screenshotsData} />
                 <Videos videoData={videoData} />
               </div>

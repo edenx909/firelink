@@ -1,21 +1,58 @@
 import { useLocation } from "react-router-dom";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import Waveform from "./macros/Waveform";
+import WaveformSlash from "./macros/WaveformSlash";
+import bgMusic from "../assets/music/OST.mp3";
 
 const Navbar = () => {
   const [hover, setHover] = useState("");
   const location = useLocation();
+
+  const [audio, setAudio] = useState(null);
+  const [icon, setIcon] = useState(<WaveformSlash />);
+
+  const playOST = () => {
+    if (audio) {
+      audio.pause();
+      setIcon(<WaveformSlash />);
+      setAudio(null);
+    } else {
+      const newAudio = new Audio(bgMusic);
+      newAudio.loop = true;
+      setIcon(<Waveform />);
+      newAudio.play();
+      setAudio(newAudio);
+    }
+  };
+  useEffect(() => {
+    return () => {
+      if (audio) {
+        audio.pause();
+        setIcon(<WaveformSlash />);
+        setAudio(null);
+      }
+    };
+  }, [audio]);
   return (
-    <nav className="fixed top-0 w-full flex z-50 bg-white items-center justify-center p-3 px-6">
+    <nav
+      className={`fixed ${
+        location.pathname !== "/" ? "border-gray-400 border-[1px]" : ""
+      }   top-0 left-1/2 transform -translate-x-1/2 w-[92vw] flex items-center justify-center z-50 px-4 py-4 lg:px-14 bg-white rounded-full m-10 mx-auto`}
+    >
       <a
         href="/"
-        className={`w-1/2 text-3xl bg-transparent font-silk font-bold ${
-          location.pathname !== "/" ? "" : "hidden"
+        className={`w-1/2 text-4xl font-trajanpro   pt-2 z-20 ${
+          location.pathname !== "/" ? "" : "invisible"
         }`}
       >
         Firelink
       </a>
-      <div className="w-full flex justify-end items-end bg-transparent">
+      <div className="w-1/2 flex justify-end items-center z-20">
+        <div className=" py-1 px-[1.25rem] flex space-x-1 " onClick={playOST}>
+          {icon}
+        </div>
         <motion.a
           href="https://edenxrana.vercel.app/"
           target="_blank"
@@ -27,7 +64,7 @@ const Navbar = () => {
             paddingRight: hover === "portfolio" ? "2.2rem" : "1.25rem",
           }}
         >
-          <p className="bg-white z-20 rounded-full py-1">Portfolio</p>
+          <p className=" z-20 rounded-full py-1 bg-transparent">Portfolio</p>
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
             className=" absolute right-3 z-10"
@@ -58,7 +95,7 @@ const Navbar = () => {
             paddingRight: hover === "github" ? "2.2rem" : "1.25rem",
           }}
         >
-          <p className="bg-white z-20 rounded-full py-1">Github</p>
+          <p className=" z-20 rounded-full py-1">Github</p>
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
             className=" absolute right-3 z-10"

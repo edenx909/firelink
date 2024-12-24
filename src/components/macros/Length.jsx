@@ -7,16 +7,20 @@ const Length = ({ lengthData }) => {
   return (
     <div className="rounded-lg cursor-pointer">
       {lengthData && lengthData[0] && (
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col md:items-end items-center justify-center">
           {lengthData[0].normally && (
             <div
-              className="flex items-center space-x-1"
+              className="flex items-center space-x-1 relative"
               onMouseEnter={() => setMainHover(true)}
               onMouseLeave={() => setMainHover(false)}
             >
               <motion.p
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: mainHover ? 1 : 0, x: mainHover ? 0 : 10 }}
+                className="absolute whitespace-nowrap"
+                initial={{ opacity: 0, x: 0 }}
+                animate={{
+                  opacity: mainHover ? 1 : 0,
+                  x: mainHover ? -80 : -20,
+                }}
                 transition={{
                   duration: 0.3,
                   ease: "easeInOut",
@@ -41,15 +45,16 @@ const Length = ({ lengthData }) => {
           )}
           {lengthData[0].completely && (
             <div
-              className="flex items-center space-x-1"
+              className="flex items-center space-x-1 relative"
               onMouseEnter={() => setCompleteHover(true)}
               onMouseLeave={() => setCompleteHover(false)}
             >
               <motion.p
-                initial={{ opacity: 0, x: 10 }}
+                className="absolute whitespace-nowrap"
+                initial={{ opacity: 0, x: 0 }}
                 animate={{
                   opacity: completeHover ? 1 : 0,
-                  x: completeHover ? 0 : 10,
+                  x: completeHover ? -100 : -20,
                 }}
                 transition={{
                   duration: 0.3,

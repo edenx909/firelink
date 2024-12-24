@@ -7,19 +7,23 @@ const Screenshots = ({ screenshotsData }) => {
 
   const lengthCheck = screenshotsData?.length > count;
   return (
-    <div className="py-10 flex flex-col items-center">
-      <h1 className="border-b py-2 border-black text-center px-[30vw]">
-        Screenshots
-      </h1>
-      <div className="items-center justify-center p-4 flex flex-wrap gap-4">
-        {screenshotsData?.slice(0, count).map((screenshot) => (
-          <img
-            key={screenshot.image_id}
-            src={screenshot.url.replace("t_thumb", "t_1080p")}
-            className="w-full md:h-[40vw/(16*9)] md:w-[40vw] h-[100vw/(16*9)]"
-          />
-        ))}
-      </div>
+    <div className="py-10 flex flex-col items-center  ">
+      {lengthCheck > 0 && (
+        <>
+          <h1 className="border-b py-2 border-black text-center px-[30vw]">
+            Screenshots
+          </h1>
+          <div className="items-center justify-center p-4 flex flex-wrap gap-4">
+            {screenshotsData?.slice(0, count).map((screenshot) => (
+              <img
+                key={screenshot.image_id}
+                src={screenshot.url.replace("t_thumb", "t_1080p")}
+                className="w-full xl:h-[40vw/(16*9)] xl:w-[40vw] h-[100vw/(16*9)]"
+              />
+            ))}
+          </div>
+        </>
+      )}
       {lengthCheck && (
         <button
           className="rounded-xl border-[1px] py-2 flex space-x-2 items-start px-4"

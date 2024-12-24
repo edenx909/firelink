@@ -6,11 +6,11 @@ export default function Footer() {
 
   return (
     <>
-      <div className="flex items-center justify-center space-x-1 py-6 border-t border-black mx-[30vw]">
+      <div className="flex items-center justify-center space-x-1 py-6 border-t border-black md:mx-[30vw] mx-10vw">
         <a
           href="https://edenxrana.vercel.app/"
           target="_blank"
-          className="text-blue-600"
+          className="text-blue-600 flex flex-row"
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         >
@@ -18,7 +18,7 @@ export default function Footer() {
             initial={{ rotate: 0 }}
             animate={{ rotate: hover ? 360 : 0 }}
             transition={{ duration: 0.2 }}
-            className="mr-1 inline-block text-blue-600"
+            className="mr-1  text-blue-600"
           >
             ©
           </motion.span>
