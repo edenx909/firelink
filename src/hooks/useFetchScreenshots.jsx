@@ -13,7 +13,7 @@ const useFetchScreenshots = () => {
           Authorization: accessToken,
           "Content-Type": "text/plain",
         },
-        body: `fields alpha_channel,animated,checksum,game,height,image_id,url,width; where game = ${id};`,
+        body: `fields checksum,game,image_id,url; where game = ${id};`,
       });
       if (!response.ok) {
         throw new Error("Failed to fetch Screenshots data");

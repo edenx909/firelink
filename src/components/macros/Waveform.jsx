@@ -5,7 +5,7 @@ const Waveform = () => {
     <>
       <motion.svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-10 h-10 bg-transparent"
+        className="h-10 w-10 bg-transparent"
         viewBox="0 0 256 256"
         animate={{
           scaleY: ["100%", "60%", "100%"],

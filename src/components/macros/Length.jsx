@@ -4,13 +4,14 @@ import { useState } from "react";
 const Length = ({ lengthData }) => {
   const [mainHover, setMainHover] = useState(false);
   const [completeHover, setCompleteHover] = useState(false);
+
   return (
-    <div className="rounded-lg cursor-pointer">
+    <div className="cursor-pointer rounded-lg">
       {lengthData && lengthData[0] && (
-        <div className="flex flex-col md:items-end items-center justify-center">
+        <div className="flex flex-col items-center justify-center md:items-end">
           {lengthData[0].normally && (
             <div
-              className="flex items-center space-x-1 relative"
+              className="relative flex items-center space-x-1"
               onMouseEnter={() => setMainHover(true)}
               onMouseLeave={() => setMainHover(false)}
             >
@@ -45,7 +46,7 @@ const Length = ({ lengthData }) => {
           )}
           {lengthData[0].completely && (
             <div
-              className="flex items-center space-x-1 relative"
+              className="relative flex items-center space-x-1"
               onMouseEnter={() => setCompleteHover(true)}
               onMouseLeave={() => setCompleteHover(false)}
             >

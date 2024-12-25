@@ -9,11 +9,11 @@ const Rating = ({ gameData }) => {
   return (
     <div className="relative">
       <div
-        className="h-1 bg-red-500 rounded"
+        className="h-1 rounded bg-red-500"
         style={{ width: `${maxWidth}rem` }}
       />
       <motion.div
-        className="h-1 bg-green-400 rounded absolute inset-0"
+        className="absolute inset-0 h-1 rounded bg-green-400"
         initial={{ width: 0 }}
         whileInView={{ width: `${greenBarWidth}rem` }}
         transition={{ duration: 0.9, delay: 0.4, ease: "easeIn" }}

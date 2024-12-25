@@ -13,7 +13,7 @@ const useFetchLength = () => {
           Authorization: accessToken,
           "Content-Type": "text/plain",
         },
-        body: `fields checksum,completely,count,created_at,game_id,hastily,normally,updated_at;  where game_id=${id};`,
+        body: `fields checksum,completely,game_id,normally,updated_at;  where game_id=${id};`,
       });
 
       if (!response.ok) {

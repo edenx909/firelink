@@ -18,14 +18,22 @@ const Websites = ({ websiteData }) => {
 
     for (const key in iconMap) {
       if (url.includes(key)) {
-        return <img src={iconMap[key]} alt={key} className="w-7 h-7" />;
+        return (
+          <img
+            src={iconMap[key]}
+            alt={key}
+            className="h-7 w-7 object-cover"
+            width="28"
+            height="28"
+          />
+        );
       }
     }
     return null;
   };
 
   const filteredData = websiteData?.filter(
-    (item) => assignedIcons(item.url) !== null
+    (item) => assignedIcons(item.url) !== null,
   );
 
   const GameLinks = ({ url }) => {
@@ -42,7 +50,7 @@ const Websites = ({ websiteData }) => {
   };
 
   return (
-    <div className="flex items-center space-x-4 justify-center">
+    <div className="flex items-center justify-center space-x-4">
       {filteredData?.length > 0 ? (
         filteredData.map((websites) => (
           <GameLinks key={websites.id} url={websites.url} />

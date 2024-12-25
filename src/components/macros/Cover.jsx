@@ -4,7 +4,10 @@ const Cover = ({ coverData }) => {
       {coverData && coverData[0] && (
         <img
           src={coverData[0].url.replace("t_thumb", "t_1080p")}
-          className="object-cover rounded-sm"
+          className="rounded-sm object-cover"
+          width={400}
+          height={300}
+          alt="Game Cover"
         />
       )}
     </div>

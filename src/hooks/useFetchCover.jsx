@@ -13,7 +13,7 @@ const useFetchCover = () => {
           Authorization: accessToken,
           "Content-Type": "text/plain",
         },
-        body: `fields height,image_id,url,width; where id = ${coverID};`,
+        body: `fields image_id,url; where id = ${coverID};`,
       });
       if (!response.ok) {
         console.log("Failed to fetch Cover data");

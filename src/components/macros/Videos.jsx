@@ -10,18 +10,19 @@ const Videos = ({ videoData }) => {
     <div className="flex flex-col items-center">
       {lengthCheck > 0 && (
         <>
-          <h1 className="border-b py-2 border-black text-center px-[30vw]">
+          <h1 className="border-b border-black px-[30vw] py-2 text-center">
             Videos
           </h1>
 
-          <div className="items-center justify-center p-4 flex flex-col xl:flex-row flex-wrap gap-4">
+          <div className="flex flex-col flex-wrap items-center justify-center gap-4 p-4 xl:flex-row">
             {videoData?.slice(0, count).map((video) => (
               <div key={video.id} className="flex items-center justify-center">
                 <iframe
                   src={`https://www.youtube.com/embed/${video.video_id}`}
                   allow="clipboard-write; picture-in-picture"
                   allowFullScreen
-                  className="w-full h-[56.25vw] xl:h-[22.5vw] aspect-video"
+                  className="aspect-video h-[56.25vw] w-full xl:h-[22.5vw]"
+                  title={`${video.name}`}
                 ></iframe>
               </div>
             ))}
@@ -30,7 +31,7 @@ const Videos = ({ videoData }) => {
       )}
       {lengthCheck && (
         <button
-          className="rounded-xl border-[1px] py-2 flex space-x-2 items-start px-4"
+          className="flex items-start space-x-2 rounded-xl border-[1px] px-4 py-2"
           onClick={() => setCount(count + 2)}
           onMouseEnter={() => setButtonHover(true)}
           onMouseLeave={() => setButtonHover(false)}
@@ -46,7 +47,7 @@ const Videos = ({ videoData }) => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="rotate-[-90deg] w-4 h-4"
+              className="h-4 w-4 rotate-[-90deg]"
               viewBox="0 0 24 24"
             >
               <path

@@ -13,7 +13,7 @@ const useFetchArtwork = () => {
           Authorization: accessToken,
           "Content-Type": "text/plain",
         },
-        body: `fields checksum,game,height,image_id,url,width; where game=${id};`,
+        body: `fields image_id,url; where game=${id};`,
       });
       if (!response.ok) {
         throw new Error("Failed to fetch Cover data");

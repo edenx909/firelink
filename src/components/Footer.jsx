@@ -6,11 +6,11 @@ export default function Footer() {
 
   return (
     <>
-      <div className="flex items-center justify-center space-x-1 py-6 border-t border-black md:mx-[30vw] mx-10vw">
+      <div className="mx-10vw flex items-center justify-center space-x-1 border-t border-black py-6 md:mx-[30vw]">
         <a
           href="https://edenxrana.vercel.app/"
           target="_blank"
-          className="text-blue-600 flex flex-row"
+          className="flex flex-row text-blue-600"
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         >
@@ -18,7 +18,7 @@ export default function Footer() {
             initial={{ rotate: 0 }}
             animate={{ rotate: hover ? 360 : 0 }}
             transition={{ duration: 0.2 }}
-            className="mr-1  text-blue-600"
+            className="mr-1 text-blue-600"
           >
             ©
           </motion.span>
@@ -28,7 +28,7 @@ export default function Footer() {
         <a
           href="https://api-docs.igdb.com/#getting-started"
           target="_blank"
-          className="text-blue-600 flex"
+          className="flex text-blue-600"
         >
           IGDB API{" "}
           <svg

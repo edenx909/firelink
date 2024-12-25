@@ -88,9 +88,7 @@ const InfoPage = () => {
       fetchStatus.videos &&
       fetchStatus.screenshots
     ) {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1200);
+      setLoading(false);
     }
   }, [fetchStatus]);
 
