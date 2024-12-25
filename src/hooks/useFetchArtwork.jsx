@@ -1,13 +1,12 @@
 import { useState, useCallback } from "react";
 const clientID = import.meta.env.VITE_CLIENT_ID;
 const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
-const apiURL = import.meta.env.VITE_API_URL;
 
 const useFetchArtwork = () => {
   const [artworkData, setArtworkData] = useState(null);
   const fetchArtwork = useCallback(async (id) => {
     try {
-      const response = await fetch(`/${apiURL}/artworks`, {
+      const response = await fetch("/api/artworks`", {
         method: "POST",
         headers: {
           "Client-ID": clientID,
