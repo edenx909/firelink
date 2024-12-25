@@ -6,7 +6,7 @@ const useFetchArtwork = () => {
   const [artworkData, setArtworkData] = useState(null);
   const fetchArtwork = useCallback(async (id) => {
     try {
-      const response = await fetch("/api/artworks`", {
+      const response = await fetch("/api/artworks", {
         method: "POST",
         headers: {
           "Client-ID": clientID,
