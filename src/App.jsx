@@ -19,6 +19,7 @@ const App = () => {
   };
 
   const [gameHover, setGameHover] = useState("");
+  console.log("Made using React & Framer Motion with ♡");
 
   return (
     <Router>

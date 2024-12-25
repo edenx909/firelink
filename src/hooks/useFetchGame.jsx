@@ -22,7 +22,6 @@ const useFetchGame = () => {
 
       const jsonData = await response.json();
       setGameData(jsonData);
-      console.log("GAME DATA", jsonData);
     } catch (err) {
       console.error(err);
     }
