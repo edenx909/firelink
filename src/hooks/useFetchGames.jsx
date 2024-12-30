@@ -1,20 +1,24 @@
 import { useState } from "react";
-const clientID = import.meta.env.VITE_CLIENT_ID;
-const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
+// const clientID = import.meta.env.VITE_CLIENT_ID;
+// const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
 const baseURL = import.meta.env.VITE_API_BASE_URL || "/api";
 
 const useFetchGames = () => {
   const [gamesData, setGamesData] = useState(null);
+
   const fetchData = async (search) => {
+    const body = `fields artworks,cover,first_release_date,name,platforms,rating,rating_count,release_dates,screenshots,slug,storyline,summary,total_rating,total_rating_count,url,version_parent,version_title,videos,websites; search="${search}"; where total_rating_count > 0 ;`;
+
     try {
-      const response = await fetch(`/${baseURL}/games`, {
+      const response = await fetch(`${baseURL}/proxy`, {
         method: "POST",
         headers: {
-          "Client-ID": clientID,
-          Authorization: accessToken,
-          "Content-Type": "text/plain",
+          "Content-Type": "application/json",
         },
-        body: `fields artworks,cover,first_release_date,name,platforms,rating,rating_count,release_dates,screenshots,slug,storyline,summary,total_rating,total_rating_count,url,version_parent,version_title,videos,websites; search"=${search}"; where total_rating_count > 0 ;`,
+        body: JSON.stringify({
+          endpoint: "games", // You specify the endpoint (e.g., games)
+          body: body, // Pass the body
+        }),
       });
 
       if (!response.ok) {
@@ -25,7 +29,7 @@ const useFetchGames = () => {
       setGamesData(jsonData);
       console.log("Games Data", jsonData);
     } catch (err) {
-      console.error(err);
+      console.error(err, "Test");
     }
   };
 

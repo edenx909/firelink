@@ -8,10 +8,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://api.igdb.com/v4",
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        target: "http://localhost:3001", // Your backend server URL
+        changeOrigin: true, // Ensures that the origin of the request is modified
+        secure: false, // Set to true if you're using HTTPS on the backend
       },
     },
   },
