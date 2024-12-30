@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
 const clientID = import.meta.env.VITE_CLIENT_ID;
 const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
+const baseURL = import.meta.env.VITE_API_BASE_URL || "/api";
 
 const useFetchWebsites = () => {
   const [websiteData, setWebsiteData] = useState(null);
   const fetchWebsite = useCallback(async (id) => {
     try {
-      const response = await fetch("/api/websites", {
+      const response = await fetch(`/${baseURL}/websites`, {
         method: "POST",
         headers: {
           "Client-ID": clientID,

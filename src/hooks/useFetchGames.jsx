@@ -1,12 +1,13 @@
 import { useState } from "react";
 const clientID = import.meta.env.VITE_CLIENT_ID;
 const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
+const baseURL = import.meta.env.VITE_API_BASE_URL || "/api";
 
 const useFetchGames = () => {
   const [gamesData, setGamesData] = useState(null);
   const fetchData = async (search) => {
     try {
-      const response = await fetch("/api/games", {
+      const response = await fetch(`/${baseURL}/games`, {
         method: "POST",
         headers: {
           "Client-ID": clientID,
