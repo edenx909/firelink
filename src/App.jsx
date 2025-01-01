@@ -19,7 +19,6 @@ const App = () => {
   };
 
   const [gameHover, setGameHover] = useState("");
-  console.log("Made using React & Framer Motion with ♡");
 
   return (
     <Router>
@@ -75,7 +74,7 @@ const App = () => {
                     .sort((a, b) => b.total_rating - a.total_rating)
                     .map((game) => (
                       <Link
-                        to={`/info/${game.id}`}
+                        to={`/game/${game.id}`}
                         key={game.id}
                         onMouseEnter={() => {
                           setGameHover(game.id);
@@ -149,7 +148,7 @@ const App = () => {
           }
         />
         <Route
-          path="/info/:id"
+          path="/game/:id"
           element={
             <div className="overflow-x-hidden">
               <InfoPage />
