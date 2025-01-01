@@ -1,19 +1,14 @@
-import { useState, useCallback } from "react";
-const clientID = import.meta.env.VITE_CLIENT_ID;
-const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
+import { useState } from "react";
 
 const useFetchLength = () => {
   const [lengthData, setLengthData] = useState(null);
-  const fetchLength = useCallback(async (id) => {
+  const fetchLength = async (id) => {
     try {
-      const response = await fetch("/api/game_time_to_beats", {
-        method: "POST",
+      const response = await fetch(`/api/game_time_to_beats/${id}`, {
+        method: "GET",
         headers: {
-          "Client-ID": clientID,
-          Authorization: accessToken,
-          "Content-Type": "text/plain",
+          "Content-Type": "application/json",
         },
-        body: `fields checksum,completely,game_id,normally,updated_at;  where game_id=${id};`,
       });
 
       if (!response.ok) {
@@ -25,7 +20,7 @@ const useFetchLength = () => {
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  };
 
   return { lengthData, fetchLength };
 };

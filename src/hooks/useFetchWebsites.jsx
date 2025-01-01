@@ -1,20 +1,14 @@
-import { useState, useCallback } from "react";
-const clientID = import.meta.env.VITE_CLIENT_ID;
-const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
-const baseURL = import.meta.env.VITE_API_BASE_URL || "/api";
+import { useState } from "react";
 
 const useFetchWebsites = () => {
   const [websiteData, setWebsiteData] = useState(null);
-  const fetchWebsite = useCallback(async (id) => {
+  const fetchWebsite = async (id) => {
     try {
-      const response = await fetch(`/${baseURL}/websites`, {
-        method: "POST",
+      const response = await fetch(`/api/websites/${id}`, {
+        method: "GET",
         headers: {
-          "Client-ID": clientID,
-          Authorization: accessToken,
-          "Content-Type": "text/plain",
+          "Content-Type": "application/json",
         },
-        body: `fields checksum,url; where game=${id};`,
       });
       if (!response.ok) {
         throw new Error("Failed to fetch websites data");
@@ -24,7 +18,7 @@ const useFetchWebsites = () => {
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  };
 
   return { websiteData, fetchWebsite };
 };

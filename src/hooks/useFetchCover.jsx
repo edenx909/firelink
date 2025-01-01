@@ -1,19 +1,15 @@
-import { useState, useCallback } from "react";
-const clientID = import.meta.env.VITE_CLIENT_ID;
-const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
+import { useState } from "react";
 
 const useFetchCover = () => {
   const [coverData, setCoverData] = useState(null);
-  const fetchCover = useCallback(async (coverID) => {
+
+  const fetchCover = async (coverID) => {
     try {
-      const response = await fetch("/api/covers", {
-        method: "POST",
+      const response = await fetch(`/api/cover/${coverID}`, {
+        method: "GET",
         headers: {
-          "Client-ID": clientID,
-          Authorization: accessToken,
-          "Content-Type": "text/plain",
+          "Content-Type": "application/json",
         },
-        body: `fields image_id,url; where id = ${coverID};`,
       });
       if (!response.ok) {
         console.log("Failed to fetch Cover data");
@@ -24,7 +20,7 @@ const useFetchCover = () => {
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  };
 
   return { coverData, fetchCover };
 };

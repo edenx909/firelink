@@ -1,19 +1,14 @@
-import { useState, useCallback } from "react";
-const clientID = import.meta.env.VITE_CLIENT_ID;
-const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
+import { useState } from "react";
 
 const useFetchArtwork = () => {
   const [artworkData, setArtworkData] = useState(null);
-  const fetchArtwork = useCallback(async (id) => {
+  const fetchArtwork = async (id) => {
     try {
-      const response = await fetch("/api/artworks", {
-        method: "POST",
+      const response = await fetch(`/api/artwork/${id}`, {
+        method: "GET",
         headers: {
-          "Client-ID": clientID,
-          Authorization: accessToken,
-          "Content-Type": "text/plain",
+          "Content-Type": "application/json",
         },
-        body: `fields image_id,url; where game=${id};`,
       });
       if (!response.ok) {
         throw new Error("Failed to fetch Artwork data");
@@ -23,7 +18,7 @@ const useFetchArtwork = () => {
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  };
 
   return { artworkData, fetchArtwork };
 };

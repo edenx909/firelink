@@ -1,19 +1,14 @@
-import { useState, useCallback } from "react";
-const clientID = import.meta.env.VITE_CLIENT_ID;
-const accessToken = `Bearer ${import.meta.env.VITE_AUTHORIZATION}`;
+import { useState } from "react";
 
 const useFetchVideos = () => {
   const [videoData, setVideoData] = useState(null);
-  const fetchVideos = useCallback(async (id) => {
+  const fetchVideos = async (id) => {
     try {
-      const response = await fetch("/api/game_videos", {
-        method: "POST",
+      const response = await fetch(`/api/videos/${id}`, {
+        method: "GET",
         headers: {
-          "Client-ID": clientID,
-          Authorization: accessToken,
-          "Content-Type": "text/plain",
+          "Content-Type": "application/json",
         },
-        body: `fields checksum,game,name,video_id; where game = ${id};`,
       });
       if (!response.ok) {
         throw new Error("Failed to fetch Cover data");
@@ -23,7 +18,7 @@ const useFetchVideos = () => {
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  };
 
   return { videoData, fetchVideos };
 };
