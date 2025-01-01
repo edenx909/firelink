@@ -1,12 +1,16 @@
 import express, { json } from "express";
 import dotenv from "dotenv";
+import path from "path";
 import fetch from "node-fetch";
 import cors from "cors";
 
-const PORT = 3001;
+const PORT = 3000;
 
 const app = express();
 app.use(cors());
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+app.use(express.static(path.join(__dirname, "..", "dist")));
 
 dotenv.config();
 app.use(json());
@@ -19,6 +23,10 @@ const headers = {
   Authorization: accessToken,
   "Content-Type": "text/plain",
 };
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
+});
 
 // games search
 app.get("/api/games", async (req, res) => {
