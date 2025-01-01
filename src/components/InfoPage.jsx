@@ -19,15 +19,6 @@ import Loading from "./macros/Loading";
 
 const InfoPage = () => {
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [fetchStatus, setFetchStatus] = useState({
-    cover: false,
-    website: false,
-    length: false,
-    artwork: false,
-    videos: false,
-    screenshots: false,
-  });
 
   const { gameData, fetchData } = useFetchGame();
   const { coverData, fetchCover } = useFetchCover();
@@ -38,70 +29,46 @@ const InfoPage = () => {
   const { screenshotsData, fetchScreenshots } = useFetchScreenshots();
 
   useEffect(() => {
-    fetchData(id); // Fetch data, the id from params
+    if (id) {
+      fetchData(id);
+    }
   }, [id, fetchData]);
 
-  useEffect(() => {
-    if (gameData && gameData[0]) {
-      // cant do normal check since some of these may return null
-      setFetchStatus((prev) => ({ ...prev, cover: false }));
-      fetchCover(gameData[0].cover).finally(() =>
-        setFetchStatus((prev) => ({ ...prev, cover: true }))
-      );
-      setFetchStatus((prev) => ({ ...prev, website: false }));
-      fetchWebsite(gameData[0].id).finally(() =>
-        setFetchStatus((prev) => ({ ...prev, website: true }))
-      );
-      setFetchStatus((prev) => ({ ...prev, length: false }));
-      fetchLength(gameData[0].id).finally(() =>
-        setFetchStatus((prev) => ({ ...prev, length: true }))
-      );
-      setFetchStatus((prev) => ({ ...prev, artwork: false }));
-      fetchArtwork(gameData[0].id).finally(() =>
-        setFetchStatus((prev) => ({ ...prev, artwork: true }))
-      );
-      setFetchStatus((prev) => ({ ...prev, videos: false }));
-      fetchVideos(gameData[0].id).finally(() =>
-        setFetchStatus((prev) => ({ ...prev, videos: true }))
-      );
-      setFetchStatus((prev) => ({ ...prev, screenshots: false }));
-      fetchScreenshots(gameData[0].id).finally(() =>
-        setFetchStatus((prev) => ({ ...prev, screenshots: true }))
-      );
-    }
-  }, [
-    fetchArtwork,
-    fetchCover,
-    fetchLength,
-    fetchScreenshots,
-    fetchVideos,
-    fetchWebsite,
-    gameData,
-  ]);
+  // loading state now used for useEffect as well
+  const [hasFetched, setHasFetched] = useState(false);
 
   useEffect(() => {
-    if (
-      fetchStatus.cover &&
-      fetchStatus.website &&
-      fetchStatus.length &&
-      fetchStatus.artwork &&
-      fetchStatus.videos &&
-      fetchStatus.screenshots
-    ) {
-      setLoading(false);
+    if (gameData && gameData[0] && !hasFetched) {
+      setHasFetched(true);
+      fetchCover(gameData[0].cover);
+      fetchWebsite(gameData[0].id);
+      fetchLength(gameData[0].id);
+      fetchArtwork(gameData[0].id);
+      fetchVideos(gameData[0].id);
+      fetchScreenshots(gameData[0].id);
+      console.log("Made by Eden Rana using React & Framer Motion with ♡");
     }
-  }, [fetchStatus]);
+  }, [
+    gameData,
+    fetchCover,
+    fetchWebsite,
+    fetchLength,
+    fetchArtwork,
+    fetchVideos,
+    fetchScreenshots,
+    hasFetched,
+  ]);
 
   return (
     <>
-      {loading ? (
-        <div className="h-screen flex items-center justify-center">
+      {!hasFetched ? (
+        <div className="flex h-screen items-center justify-center">
           <Loading />
         </div>
       ) : (
         <div className="z-20">
           {gameData && gameData[0] ? (
-            <div className="flex flex-col items-center justify-center md:space-y-4 space-y-2">
+            <div className="flex flex-col items-center justify-center space-y-2 md:space-y-4">
               {artworkData ? (
                 <Artwork
                   artworkData={artworkData}
@@ -111,20 +78,20 @@ const InfoPage = () => {
               ) : (
                 <></>
               )}
-              <div className="bg-white flex flex-col items-center justify-center p-10">
-                <div className="flex justify-center md:items-end xl:mx-40 mx-12 2xl:mx-64 flex-col md:flex-row">
+              <div className="flex flex-col items-center justify-center bg-white p-10">
+                <div className="mx-12 flex flex-col justify-center md:flex-row md:items-end xl:mx-40 2xl:mx-64">
                   <div
-                    className={`flex flex-col items-center md:p-4  ${
-                      artworkData[0] ? "-mt-60" : "mt-20"
+                    className={`flex flex-col items-center md:p-4 ${
+                      artworkData ? "-mt-60" : "mt-20"
                     }`}
                   >
                     <Cover coverData={coverData} />
                   </div>
-                  <div className="space-y-4 flex flex-col  md:items-end md:py-4 py-2 items-center">
+                  <div className="flex flex-col items-center space-y-4 py-2 md:items-end md:py-4">
                     <Length lengthData={lengthData} />
                     <p>
                       {new Date(
-                        gameData[0].first_release_date * 1000
+                        gameData[0].first_release_date * 1000,
                       ).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
@@ -141,7 +108,7 @@ const InfoPage = () => {
               </div>
             </div>
           ) : (
-            <p className="h-screen flex items-center justify-center">
+            <p className="flex h-screen items-center justify-center">
               Loading...
             </p>
           )}
