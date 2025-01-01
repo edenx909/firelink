@@ -8,9 +8,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3001", // Your backend server URL
-        changeOrigin: true, // Ensures that the origin of the request is modified
-        secure: false, // Set to true if you're using HTTPS on the backend
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
       },
     },
   },
