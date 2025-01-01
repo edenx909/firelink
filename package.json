@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:server\"",
     "dev:frontend": "vite",
-    "dev:server": "node server/server.js"
+    "dev:server": "node server/server.js",
+    "build": "vite build && npm run build:server",
+    "build:server": "node server/build.js",
+    "start": "node server/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
