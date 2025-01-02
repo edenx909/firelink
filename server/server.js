@@ -24,10 +24,6 @@ const headers = {
   "Content-Type": "text/plain",
 };
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
-});
-
 // games search
 app.get("/api/games", async (req, res) => {
   const { query } = req.query;
