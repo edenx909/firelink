@@ -227,6 +227,10 @@ app.get("/api/websites/:id", async (req, res) => {
   }
 });
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
+});
+
 app.listen(PORT, () => {
   console.log(`running on ${PORT}`);
 });
